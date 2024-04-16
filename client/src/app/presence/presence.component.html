@@ -1,0 +1,97 @@
+<div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert" *ngIf="showAlert">
+    <span class="font-medium capitalize">Seance terminée </span> 
+  </div>
+<form [formGroup]="seanceForm">
+<div class="flex flex-col  p-8 ">
+    <div class="grid grid-cols-1 gap-4">
+        <div class=" sm:place-self-auto lg:place-self-center p-4 w-full ">
+            <div class="flex inline-flex py-4">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                        d="M20 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6h-2m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4" />
+                </svg>
+                <h5 class="text-xl font-bold dark:text-white px-1"> List de Présence</h5>
+            </div>
+            <br>
+            <div class="inline-flex rounded-lg shadow-sm pb-4" role="group">
+                <div class="flex flex-col md:flex-row ">
+                    <label  class=" font-medium md:text-base text-md text-gray-800  padding-label px-2 mt-2">Matiere*</label>
+                    <select  formControlName="matiereId"  class="bg-gray-50 border border-gray-300 text-gray-900 md:text-base text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5">
+                        <option value="Choisir un matiere" selected>Choisir un matiere</option>
+                        <option *ngFor='let matieres of matiere' [ngValue]="matieres.id">{{matieres.name}}</option>
+                    </select>
+                </div>
+                <div class="flex flex-col md:flex-row ml-4">
+                    <label  class=" font-medium md:text-base text-md text-gray-800  padding-label px-2 mt-2">Professeur*</label>
+                    <select  formControlName="ProfId"  class="bg-gray-50 border border-gray-300 text-gray-900 md:text-base text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5">
+                        <option value="Choisir un professeur" selected>Choisir un professeur</option>
+                        <option *ngFor='let professeurs of professeur' [ngValue]="professeurs.id">{{professeurs.name}} {{professeurs.lastname}} </option>
+                    </select>
+                </div>
+                <div class="flex flex-col md:flex-row ml-4">
+                    <label  class=" font-medium md:text-base text-md text-gray-800  padding-label px-2 mt-2">Groupe*</label>
+                    <select  formControlName="groupeId"   class="bg-gray-50 border border-gray-300 text-gray-900 md:text-base text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5">
+                        <option value="Choisir un groupe" selected>Choisir un groupe</option>
+                        <option *ngFor='let groupes of groupe' [ngValue]="groupes.id">{{groupes.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <button (click)="enregistrerEleve()" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-10">Enregistrer</button>
+            <div class="overflow-x-auto shadow-md rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Nom && Prenom
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Séance 1
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Séance 2
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Séance 3
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Séance 4
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="eleve">
+                        <tr *ngFor="let elv of eleve" class=" text-lg bg-white border-b hover:bg-gray-50">
+                            <td class="px-6 py-4">
+                                {{elv.name }} {{ elv.lastname }}
+                            </td>
+                            <td class="px-6 py-4">
+                                <input type="date" class="border rounded px-2 py-1" formControlName="date_1"
+                                >
+                            </td>
+                            <td class="px-6 py-4">
+                                <input type="date" class="border rounded px-2 py-1" formControlName="date_2">
+                            </td>
+                            <td class="px-6 py-4">
+                                <input type="date" class="border rounded px-2 py-1" formControlName="date_3">
+                            </td>
+                            <td class="px-6 py-4">
+                                <input type="date" class="border rounded px-2 py-1" formControlName="date_4">
+                            </td>
+                            <td class="flex items-center px-6 py-4 space-x-3">
+                                <button (click)="Submit(elv.id)" type="submit"
+                                    class="disabled:opacity-50 text-teal-400 font-medium text-lg py-2.5 me-2 mb-2 underline underline-offset-4">Confirmer</button>
+                                <button
+                                    class="disabled:opacity-50 text-red-400 font-medium text-lg py-2.5 me-2 mb-2 underline underline-offset-4">Archivée</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+</form>

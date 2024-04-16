@@ -1,0 +1,35 @@
+<div class="container mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Calendrier {{ year }}</h2>
+
+    <div class="flex flex-wrap justify-between items-center">
+        <button class=" rounded-md p-2 cursor-pointer" (click)="getPreviousMonth()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
+            </svg>
+        </button>
+
+        <div class="bg-white rounded-md p-4">
+            <span class="text-lg font-bold">{{ months[currentMonth].name }}</span>
+            <div class="grid grid-cols-7 gap-2 mt-4">
+                <div class="grid grid-cols-1 text-center font-bold" *ngFor="let day of weekDays">
+                    <div class="px-2 py-1 rounded-md bg-gray-200">{{ day }}</div>
+                </div>
+                <ng-container *ngFor="let day of months[currentMonth].days">
+                    <div class="text-center px-2 py-2 rounded-md">
+                        {{ day.date }}
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+        <button class=" rounded-md p-2 cursor-pointer" (click)="getNextMonth()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+            </svg>
+        </button>
+    </div>
+</div>
